@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  userID: 1
+  adminId: 1
+  macAddress: MyString
+  passphrase: 
+
+two:
+  userID: 1
+  adminId: 1
+  macAddress: MyString
+  passphrase: 
