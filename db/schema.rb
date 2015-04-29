@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150428024650) do
+ActiveRecord::Schema.define(version: 20150428090123) do
 
   create_table "keys", force: :cascade do |t|
     t.integer  "user_id"
@@ -30,6 +30,13 @@ ActiveRecord::Schema.define(version: 20150428024650) do
   end
 
   add_index "locks", ["mac"], name: "index_locks_on_mac"
+
+  create_table "revokes", force: :cascade do |t|
+    t.string   "user_id"
+    t.string   "key_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
 # Could not dump table "users" because of following NoMethodError
 #   undefined method `[]' for nil:NilClass
