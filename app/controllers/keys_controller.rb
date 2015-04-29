@@ -6,7 +6,9 @@ class KeysController < ApplicationController
   def index
     @keys = Key.all
 
-    render json: @keys
+    render json: @keys.as_json(
+      only: [:id, :nickname]
+    )
   end
 
   # GET /keys/1
@@ -59,8 +61,12 @@ class KeysController < ApplicationController
     
     def set_user
       if params[:key][:phone_number]
-         @user=User.where("phone_number= ?", params[:key][:phone_number]).first
-         params[:key][:user_id]=@user.id
+         @user=User.find_by(phone_number: params[:key][:phone_number])
+         if @user
+          params[:key][:user_id]=@user.id
+         else
+          render json: {error:'this phoneNumber has no id'} ,status: :unprocessable_entity
+         end
       end
     end
     

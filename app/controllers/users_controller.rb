@@ -4,9 +4,14 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
+    def as_json(options={})
+      super(:methods => [:username, :time_ago], except: [:created_at, :updated_at])
+    end
     @users = User.all
 
-    render json: @users
+    render json: @users.as_json(
+      only: [:id, :nickname]
+    )
   end
 
   # GET /users/1
