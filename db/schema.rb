@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150428090123) do
+ActiveRecord::Schema.define(version: 20150513025015) do
+
+  create_table "keychanges", force: :cascade do |t|
+    t.string   "user_id"
+    t.string   "change"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "keys", force: :cascade do |t|
     t.integer  "user_id"
@@ -20,25 +27,17 @@ ActiveRecord::Schema.define(version: 20150428090123) do
     t.string   "passphrase"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "idinlock"
   end
 
-  create_table "locks", force: :cascade do |t|
-    t.integer  "admin_id"
-    t.string   "mac"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "users", force: :cascade do |t|
+    t.string   "phone_number"
+    t.string   "password_digest"
+    t.string   "nickname"
+    t.string   "publickey"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "avatar"
   end
-
-  add_index "locks", ["mac"], name: "index_locks_on_mac"
-
-  create_table "revokes", force: :cascade do |t|
-    t.string   "user_id"
-    t.string   "key_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-# Could not dump table "users" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
 
 end

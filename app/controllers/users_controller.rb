@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     @users = User.all
 
     render json: @users.as_json(
-      only: [:id, :nickname]
+      only: [:id, :nicknam, :publickey]
     )
   end
 
@@ -36,8 +36,8 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     @user = User.find(params[:id])
-
-    if @user.update(user_params)
+    
+    if @user.update(update_params)
       head :no_content
     else
       render json: @user.errors, status: :unprocessable_entity
@@ -57,8 +57,12 @@ class UsersController < ApplicationController
     def set_user
       @user = User.find(params[:id])
     end
-
+    
+    def update_params
+      params.require(:user).permit(:nickname, :publickey, :avatar)
+    end
+    
     def user_params
-      params.require(:user).permit(:phone_number, :password, :password_confirmation, :nickname, :publickey, :user_id)
+      params.require(:user).permit(:phone_number, :password, :nickname, :publickey)
     end
 end
